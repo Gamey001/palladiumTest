@@ -30,6 +30,11 @@ public class UserController {
 		return userRepository.findById(id).orElse(null);
 	}
 
+	@RequestMapping(method = RequestMethod.POST, value = "/users")
+	public void addUser(@PathVariable String id, @RequestBody User user) {
+		userRepository.save(user);
+	}
+
 	@RequestMapping(method = RequestMethod.PUT, value = "/users/{id}")
 	public void updateUser(@PathVariable String id, @RequestBody User user) {
 		userRepository.save(user);
