@@ -31,7 +31,7 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/users")
-	public void addUser(@PathVariable String id, @RequestBody User user) {
+	public void addUser(@RequestBody User user) {
 		userRepository.save(user);
 	}
 
