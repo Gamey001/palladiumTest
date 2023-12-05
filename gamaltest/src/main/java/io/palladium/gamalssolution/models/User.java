@@ -1,7 +1,5 @@
 package io.palladium.gamalssolution.models;
 
-import javax.validation.constraints.Email;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -9,7 +7,7 @@ import jakarta.persistence.Id;
 public class User {
 	@Id
 	private String username;
-	@Email
+//	@Email
 	private String email;
 	private String phoneNumber;
 	private String dateCreated;
