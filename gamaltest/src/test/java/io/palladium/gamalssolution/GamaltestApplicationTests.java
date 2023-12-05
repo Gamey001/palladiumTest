@@ -1,24 +1,16 @@
 package io.palladium.gamalssolution;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import io.palladium.gamalssolution.controllers.UserController;
-import io.palladium.gamalssolution.models.User;
-
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import io.palladium.gamalssolution.controllers.UserController;
+import io.palladium.gamalssolution.models.User;
+
 @SpringBootTest
-class CourseapiApplicationTests {
+class GamaltestApplicationTests {
 	@Autowired
 	UserController userController;
 
