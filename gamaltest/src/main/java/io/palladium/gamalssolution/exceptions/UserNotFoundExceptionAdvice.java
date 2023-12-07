@@ -19,7 +19,6 @@ public class UserNotFoundExceptionAdvice {
 		Map<String, String> errMapp = new HashMap<>();
 
 		errMapp.put("Error: ", e.getMessage());
-
 		return errMapp;
 	}
 
