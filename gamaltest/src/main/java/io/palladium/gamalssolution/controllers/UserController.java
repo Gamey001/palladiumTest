@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.palladium.gamalssolution.exceptions.UserNotFoundException;
 import io.palladium.gamalssolution.models.User;
 import io.palladium.gamalssolution.repositories.UserRepository;
 
@@ -27,7 +28,7 @@ public class UserController {
 
 	@RequestMapping("/users/{id}")
 	public User getUser(@PathVariable String id) {
-		return userRepository.findById(id).orElse(null);
+		return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/users")
