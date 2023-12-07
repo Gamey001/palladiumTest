@@ -1,25 +1,48 @@
-package io.palladium.gamalssolution.exceptions;
+package io.palladium.gamalssolution.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@ControllerAdvice
-public class UserNotFoundExceptionAdvice {
+import io.palladium.gamalssolution.exceptions.UserNotFoundException;
+import io.palladium.gamalssolution.models.User;
+import io.palladium.gamalssolution.repositories.UserRepository;
 
-	@ResponseBody
-	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(UserNotFoundException.class)
-	public Map<String, String> exceptionHandler(UserNotFoundException e) {
-		Map<String, String> errMapp = new HashMap<>();
+@RestController
+public class UserController {
+	@Autowired
+	UserRepository userRepository;
 
-		errMapp.put("Error: ", e.getMessage());
-		return errMapp;
+	@RequestMapping("/users")
+	public List<User> getAllUsers() {
+		List<User> users = new ArrayList<User>();
+		userRepository.findAll().forEach(users::add);
+		return users;
 	}
 
+	@RequestMapping("/users/{id}")
+	public User getUser(@PathVariable String id) {
+		return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/users")
+	public void addUser(@RequestBody User user) {
+		userRepository.save(user);
+	}
+
+	@RequestMapping(method = RequestMethod.PUT, value = "/users/{id}")
+	public void updateUser(@PathVariable String id, @RequestBody User user) {
+		userRepository.save(user);
+	}
+
+	@RequestMapping(method = RequestMethod.DELETE, value = "/users/{id}")
+	public void deleteUser(@PathVariable String id) {
+		userRepository.deleteById(id);
+	}
 }
